@@ -1,15 +1,53 @@
 <%- include("partials/header") %>
-<h1>Hello the camps are </h1>
 
-
-<% campgrounds.forEach(function(campground){ %>
-    <div>
-        <h4><%= campground.name %></h4>
-        <img src="<%= campground.image %>">
+<!-- <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Yelpcamp</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Login</a></li>
+                <li><a href="/">Sign up</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
     </div>
-        
-    
-    
-<% }); %>
+
+</nav> -->
+<div class="container">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Welcome to Yelpcamp</h1>
+            <p>view our hand-picked campgrounds</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add new campground</a>
+            </p>
+        </div>
+    </div>
+    <h1>Hello the camps are </h1>
+
+    <div class="row">
+        <% campgrounds.forEach(function(campground){ %>
+            <div class="col-md-3 col-sm-6 ">
+                <div class="thumbnail">
+                    <img src="<%= campground.image %>">
+                </div>
+                <div class="caption">
+                    <h4><%= campground.name %></h4>
+                    <a href='/campgrounds/<%= campground._id %>' class="btn btn-primary">more info</a>
+                </div>
+                
+                
+            </div>
+                
+            
+            
+        <% }); %>
+    </div>
+</div>
+
+
+
 
 <%- include("partials/footer") %>
