@@ -1,0 +1,11 @@
+<%- include("../partials/header") %>
+<div class="container">
+    <form class="form-group" action="/campgrounds/<%= campgroundId %>/comments/<%=comment.id%>?_method=PUT" method="POST">
+        <h1>edit comment</h1>
+        <input class="inputField" type="text" name="comment[text]"  value="<%= comment.text %>">
+        <!-- <input class="inputField" type="text" name="campground[image]" value="<%= campground.image %>"> -->
+        <!-- <input class="inputField" type="text" name="campground[description]" value="<%= campground.description %>"> -->
+        <button class="btn btn-lg btn-primary">submit</button>
+    </form>    
+</div>
+<%- include("../partials/footer") %>

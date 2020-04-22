@@ -1,3 +1,26 @@
 .image{
     object-fit: cover;
 }
+
+.form-group{
+    width: 50%;
+    text-align: center;
+}
+
+input{
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.thumbnail img{
+    width:100%;
+}
+
+.thumbnail{
+    padding: 0;;
+}
+
+.thumbnail .caption-full{
+    padding:9px;
+}

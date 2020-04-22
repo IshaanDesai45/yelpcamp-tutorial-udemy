@@ -1,69 +1,51 @@
-const express = require('express');
-const bodyParser = require ('body-parser');
-var mongoose = require('mongoose');
-var campground = require('./models/campgrounds.js');
-var seedDB = require('./seeds.js');
-var app = express();
+var express                     = require('express'),
+    bodyParser                  = require ('body-parser'),
+    mongoose                    = require('mongoose'),
+    passport                    = require('passport'),
+    localStrategy               = require('passport-local'),
+    methodOverride              = require('method-override')
+    // passport-local-mongoose     = require('passport-local-mongoose'),
+    campground                  = require('./models/campgrounds.js'),
+    comment                     = require('./models/comment'),
+    User                        = require('./models/user'),
+    seedDB                      = require('./seeds.js'),
+    flash                       = require("connect-flash")
+    app                         = express();
+
+//requiring routes
+let commentRoutes= require('./routes/comments'),
+    campgroundRoutes= require('./routes/campgrounds')
+    authRoutes =require('./routes/index');
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
+app.use(express.static("public"));
+app.use(methodOverride("_method"))
 
-seedDB();
+// seedDB();
+//passport configuration
+app.use(require("express-session")({
+    secret:"ishaan likes soma",
+    resave:false,
+    saveUninitialized :false
+}));
 
-app.get("/campgrounds",(req,res)=>{
-    campground.find({},function(err,allCampground){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.render("campgrounds",{campgrounds:allCampground});
-        }
-    })
-  
-    
-    
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(function(req,res,next){
+    res.locals.currentUser = req.user;
+    res.locals.error       = req.flash("error");
+    res.locals.success     = req.flash("success");
+    next();
 });
-app.post("/campgrounds1",(req,res)=>{
-    // res.send("you have reached the psot route");
-   var name = req.body.name;
-//    console.log(name);
-    var image =req.body.image;
-    // console.log(image);
-    var newCampground = {name: name,image:  image}
-    // console.log(newCampground);
-    campground.create({
-        name:newCampground.name,
-        image:newCampground.image,
-        description:"nice"
-    },function(err,campground){
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(campground);
-        }
-    });
-    // console.log(campgrounds);
-    res.redirect("/campgrounds");
-});
+app.use(authRoutes);
+app.use(campgroundRoutes);
+app.use(commentRoutes);
 
-app.get("/campgrounds/new",(req,res)=>{
-    res.render("new.ejs");
-});
-
-app.get("/campgrounds/:id",(req,res)=>{
-    // console.log(req);
-    campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(foundCampground);
-            res.render("show.ejs",{campground:foundCampground});
-        }
-    })
-    
-})
 
 app.listen(3000,()=>{
     console.log("the server has started");

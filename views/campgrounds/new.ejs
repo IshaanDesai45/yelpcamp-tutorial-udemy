@@ -1,0 +1,12 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <form class="form-group" action="/campgrounds" method="POST">
+        <h1>new campground</h1>
+        <input class="inputField" type="text" name="name" placeholder="name">
+        <input class="inputField" type="text" name="image" placeholder="image url">
+        <button class="btn btn-lg btn-primary">submit</button>
+    </form>    
+</div>
+
+<%- include("../partials/footer") %>

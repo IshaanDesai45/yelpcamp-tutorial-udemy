@@ -23,37 +23,37 @@ let data =[
 function seedDb(){
     //remove campgronds
     Campgrounds.remove({},(err)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log('campgropunds removed');
-        }
-         //add campgrounds
-        data.forEach((seed)=>{
-            Campgrounds.create(seed,(err,campdata)=>{
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    console.log('campground created');
-                    Comment.create({
-                        text: "this is beautiful site but without connectivity",
-                        author: 'ishaan desai'
-                    },(err,comment)=>{
-                        if (err) {
-                            console.log(err);
-                        }
-                        else{
-                            console.log(comment);
-                            campdata.comments.push(comment);
-                            campdata.save();
-                            console.log('comment added');
-                        }
-                    });
-                }
-        })
-    });
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log('campgropunds removed');
+    //     }
+    //      //add campgrounds
+    //     data.forEach((seed)=>{
+    //         Campgrounds.create(seed,(err,campdata)=>{
+    //             if(err){
+    //                 console.log(err);
+    //             }
+    //             else{
+    //                 console.log('campground created');
+    //                 Comment.create({
+    //                     text: "this is beautiful site but without connectivity",
+    //                     author: 'ishaan desai'
+    //                 },(err,comment)=>{
+    //                     if (err) {
+    //                         console.log(err);
+    //                     }
+    //                     else{
+    //                         console.log(comment);
+    //                         campdata.comments.push(comment);
+    //                         campdata.save();
+    //                         console.log('comment added');
+    //                     }
+    //                 });
+    //             }
+    //     })
+    // });
     });
    
 }
