@@ -16,7 +16,7 @@ var express                     = require('express'),
 let commentRoutes= require('./routes/comments'),
     campgroundRoutes= require('./routes/campgrounds')
     authRoutes =require('./routes/index');
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb+srv://Ishaan:Ishaan@1234@cluster0-bkgnb.mongodb.net/test?retryWrites=true&w=majority");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static("public"));
