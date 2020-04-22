@@ -16,7 +16,14 @@ var express                     = require('express'),
 let commentRoutes= require('./routes/comments'),
     campgroundRoutes= require('./routes/campgrounds')
     authRoutes =require('./routes/index');
-mongoose.connect("mongodb+srv://Ishaan:Ishaan@1234@cluster0-bkgnb.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://Ishaan:Ishaan1234@cluster0-bkgnb.mongodb.net/test?retryWrites=true&w=majority",{
+    useNewUrlParser:true,
+    useCreateIndex:true
+}).then(()=>{
+    console.log('connected to DB')
+}).catch(err=>{
+    console.log('ERROR',err.message)
+});
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static("public"));
@@ -46,7 +53,7 @@ app.use(authRoutes);
 app.use(campgroundRoutes);
 app.use(commentRoutes);
 
-
+//process.env.PORT,process.env.IP
 app.listen(process.env.PORT,process.env.IP,()=>{
     console.log("the server has started");
 });
